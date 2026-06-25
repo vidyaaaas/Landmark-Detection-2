@@ -3,8 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import cv2
-import mediapipe as mp
 import numpy as np
+from mediapipe.python.solutions import drawing_styles
+from mediapipe.python.solutions import drawing_utils
+from mediapipe.python.solutions import face_mesh
+from mediapipe.python.solutions import hands
+from mediapipe.python.solutions import pose
 
 
 @dataclass(frozen=True)
@@ -21,11 +25,11 @@ class LandmarkDetector:
 
     def __init__(self, options: DetectorOptions | None = None) -> None:
         self.options = options or DetectorOptions()
-        self.mp_drawing = mp.solutions.drawing_utils
-        self.mp_styles = mp.solutions.drawing_styles
-        self.mp_face_mesh = mp.solutions.face_mesh
-        self.mp_hands = mp.solutions.hands
-        self.mp_pose = mp.solutions.pose
+        self.mp_drawing = drawing_utils
+        self.mp_styles = drawing_styles
+        self.mp_face_mesh = face_mesh
+        self.mp_hands = hands
+        self.mp_pose = pose
 
         self.face_mesh = self.mp_face_mesh.FaceMesh(
             static_image_mode=False,
