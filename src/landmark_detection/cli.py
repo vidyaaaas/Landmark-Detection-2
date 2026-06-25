@@ -51,9 +51,13 @@ def run_image(args: argparse.Namespace, detector: LandmarkDetector) -> None:
 def run_webcam(args: argparse.Namespace, detector: LandmarkDetector) -> None:
     capture = cv2.VideoCapture(args.camera_index)
     if not capture.isOpened():
-        raise RuntimeError(f"Could not open webcam index {args.camera_index}")
+        raise RuntimeError(
+            f"Could not open webcam index {args.camera_index}. "
+            "Close other camera apps or try --camera-index 1."
+        )
 
     try:
+        print("Webcam started. Press q in the camera window to quit.")
         while True:
             ok, frame = capture.read()
             if not ok:
